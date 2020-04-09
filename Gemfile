@@ -37,6 +37,7 @@ group :development, :test do
   gem "ruby-debug-ide"
   gem "debase"
   gem 'solargraph'
+  gem 'factory_bot_rails'
 end
 
 group :development do

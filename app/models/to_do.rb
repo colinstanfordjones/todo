@@ -12,7 +12,6 @@ class ToDo < ApplicationRecord
       item = LineItem.find_by(id: i[:id]) || LineItem.new
       item.completed = i[:completed]
       item.title = i[:title]
-      item.save
       updated_items.push item
     end
 
