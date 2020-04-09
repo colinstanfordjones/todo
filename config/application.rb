@@ -27,6 +27,8 @@ module Todo
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    config.assets.enabled = true
+
     # Rails generate
     config.generators do |g|
       g.test_framework :rspec

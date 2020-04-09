@@ -13,20 +13,19 @@
 ActiveRecord::Schema.define(version: 2020_04_09_000630) do
 
   create_table "line_items", force: :cascade do |t|
-    t.string "description"
-    t.integer "position"
-    t.boolean "status"
+    t.string "title"
+    t.boolean "completed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "todo_lists_id"
-    t.index ["todo_lists_id"], name: "index_line_items_on_todo_lists_id"
+    t.integer "to_do_id"
+    t.index ["to_do_id"], name: "index_line_items_on_to_do_id"
   end
 
-  create_table "todo_lists", force: :cascade do |t|
+  create_table "to_dos", force: :cascade do |t|
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "line_items", "todo_lists", column: "todo_lists_id"
+  add_foreign_key "line_items", "to_dos"
 end
