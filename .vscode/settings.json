@@ -1,0 +1,7 @@
+{
+    "solargraph.useBundler": true,
+    "ruby.intellisense": "rubyLocate",
+    "ruby.useBundler": true,
+    "ruby.format": "rubocop",
+    "ruby.useLanguageServer": true
+}
