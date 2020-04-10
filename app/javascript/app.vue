@@ -48,6 +48,30 @@
         <span class="todo-count">
           <strong>{{ remaining }}</strong> {{ remaining | pluralize }} left
         </span>
+        <ul class="filters">
+          <li>
+            <a href="#/all"
+               v-on:click="visibility = 'all'"
+               :class="{ selected: visibility == 'all' }">
+              All
+            </a>
+          </li>
+          <li>
+            <a href="#/active"
+               v-on:click="visibility = 'active'"
+               :class="{ selected: visibility == 'active' }">
+              Active
+            </a>
+          </li>
+          <li>
+            <a
+              href="#/completed"
+              v-on:click="visibility = 'completed'"
+              :class="{ selected: visibility == 'completed' }">
+              Completed
+            </a>
+          </li>
+        </ul>
         <button
           class="clear-completed"
           @click="removeCompleted"
