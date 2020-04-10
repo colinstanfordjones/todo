@@ -17,6 +17,6 @@ class Api::V1::TodoController < ActionController::API
   private
 
   def todo_params
-    params.require(:line_items).each{ |li| li.permit(:id, :title, :completed)}
+    params.require(:line_items).each{ |li| li.permit(:remote_id, :title, :completed)}
   end
 end

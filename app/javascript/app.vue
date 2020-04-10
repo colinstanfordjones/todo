@@ -67,12 +67,7 @@ var todoInterface = {
   fetch: function() {
     return axios.get('/api/v1/todo')
       .then(function (response) {
-        console.log(response);
         var retrieved_todos = response['data']['results'];
-        console.log(retrieved_todos);
-        retrieved_todos.forEach(function(retrieved_todos, index) {
-          retrieved_todos.id = index;
-        });
 
         todoInterface.uid = retrieved_todos.length;
         return retrieved_todos;
@@ -84,7 +79,10 @@ var todoInterface = {
   save: function(todos) {
     return axios.put('/api/v1/todo', todos)
       .then(function (response) {
-        console.log(response);
+        var retrieved_todos = response['data']['results'];
+
+        todoInterface.uid = retrieved_todos.length;
+        return retrieved_todos;
       })
       .catch(function (error) {
         console.log(error);
@@ -125,7 +123,7 @@ export default {
     todoInterface.fetch().then(res => {
       res.forEach(function(retrieved_item, index) {
         top.todos.push({
-          id: retrieved_item.id,
+          remote_id: retrieved_item.id,
           title: retrieved_item.title,
           completed: retrieved_item.completed
         });
@@ -137,7 +135,14 @@ export default {
   watch: {
     todos: {
       handler: function(todos) {
-        todoInterface.save({ line_items: todos });
+        todoInterface.save({ line_items: todos }).then(res => {
+          var new_item = res.map(x => x.id).filter(function(obj) { return todos.map(x => x.remote_id).indexOf(obj) == -1; })[0];
+          var empty_line_item = todos.filter(function(obj) { return  obj.remote_id === undefined })[0];
+
+          if(new_item && empty_line_item) {
+            empty_line_item.remote_id = new_item
+          }
+        });
       },
       deep: true
     }
